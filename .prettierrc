@@ -1,0 +1,16 @@
+{
+  "htmlWhitespaceSensitivity": "ignore",
+  "endOfLine": "auto",
+  "jsxSingleQuote": true,
+  "printWidth": 120,
+  "trailingComma" : "none",
+  "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+}
