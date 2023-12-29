@@ -26,7 +26,13 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Add prettier plugin:
+https://github.com/prettier/eslint-plugin-prettier
 
 ## Migrate to jest:
 https://jestjs.io/docs/getting-started
 https://medium.com/edataconsulting/how-to-switch-from-karma-to-jest-using-angular-7335588ffdf0
+
+## Run Json Server
+npm install --save-dev json-server
+npm run json
