@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.heroes.tour</groupId>
+  <artifactId>angular-tour-of-heroes</artifactId>
+  <version>0.0.1</version>
+  <packaging>war</packaging>
+  <name>Angular tour of heroes</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
+    <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+    <jetty-maven-plugin.version>10.0.19</jetty-maven-plugin.version>
+    <version.jdk>11</version.jdk>
+    <base-href-root>/angular-tour-of-heroes/</base-href-root>
+  </properties>
+
+  <dependencies>
+    <!-- Fallback configuration -->
+    <!-- https://angular.io/guide/deployment#fallback-configuration-examples -->
+    <dependency>
+      <groupId>org.tuckey</groupId>
+      <artifactId>urlrewritefilter</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Build angular application -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <executions>
+          <!-- install node modules -->
+          <execution>
+            <id>running npm install</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>install</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- Add ng lint execution -->
+          <execution>
+            <id>running ng lint</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>ng</executable>
+              <arguments>
+                <argument>lint</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- Add ng test execution -->
+          <execution>
+            <id>running ng test</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>ng</executable>
+              <arguments>
+                <argument>test</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- Add ng build execution -->
+          <execution>
+            <id>running ng build</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>ng</executable>
+              <arguments>
+                <argument>build</argument>
+                <argument>--base-href</argument>
+                <argument>${base-href-root}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <release>${version.jdk}</release>
+        </configuration>
+      </plugin>
+      <!-- Package as WAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>${maven-war-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>angular-tour-of-heroes-war</id>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <webResources>
+            <resource>
+              <directory>dist/sports-store</directory>
+            </resource>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>WEB-INF/**</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+
+      <!-- Deploy WAR with Jetty -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty-maven-plugin.version}</version>
+        <configuration>
+          <webApp>
+            <contextPath>${base-href-root}</contextPath>
+          </webApp>
+          <httpConnector>
+            <port>8080</port>
+          </httpConnector>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+</project>
