@@ -36,3 +36,25 @@ https://medium.com/edataconsulting/how-to-switch-from-karma-to-jest-using-angula
 ## Run Json Server
 npm install --save-dev json-server
 npm run json
+
+
+## Run Sonar
+https://docs.sonarsource.com/sonarcloud/enriching/test-coverage/javascript-typescript-test-coverage/
+https://docs.sonarsource.com/sonarqube/latest/project-administration/analysis-scope/
+https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/branches/branch-analysis/
+https://docs.sonarsource.com/sonarcloud/enriching/branch-analysis-setup/
+
+npm install -g @angular/cli
+export SONAR_TOKEN=token
+
+mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+-Dsonar.projectKey=vancho-s_angular-tour-of-heroes-16 \
+-DproxySet=true \
+-Dhttps.proxyHost=go2web.dguv.de \
+-Dhttps.proxyPort=3128 \
+-Dsonar.sources=. \
+-Dsonar.test.inclusions=src/**/*.spec.ts \
+-Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info \
+-Dsonar.qualitygate.wait=true \
+-Dsonar.branch.name=dev-feature
+-Dsonar.branch.target=dev \

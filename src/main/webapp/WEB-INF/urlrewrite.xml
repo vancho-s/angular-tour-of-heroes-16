@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlrewrite>
+  <rule>
+    <from>^(?!.*\.js$|.*\.css$|.*\.png$|.*\.jpg$|.*\.gif$|.*\.otf$|.*\.ico$|.*\.ttf$|.*\.json$|.*\.xml$).*$</from>
+    <to>/index.html</to>
+  </rule>
+</urlrewrite>
