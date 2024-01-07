@@ -47,14 +47,26 @@ https://docs.sonarsource.com/sonarcloud/enriching/branch-analysis-setup/
 npm install -g @angular/cli
 export SONAR_TOKEN=token
 
-mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
--Dsonar.projectKey=vancho-s_angular-tour-of-heroes-16 \
+export http_proxy=http://go2web.dguv.de:3128/
+export https_proxy=$http_proxy
+export ftp_proxy=$http_proxy
+export rsync_proxy=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+
+Sonar Proxy configs:
 -DproxySet=true \
 -Dhttps.proxyHost=go2web.dguv.de \
 -Dhttps.proxyPort=3128 \
+
+mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+-Dsonar.host.url=https://sonarcloud.io \
+-Dsonar.organization=vancho-s \
+-Dsonar.projectKey=vancho-s_angular-tour-of-heroes-16 \
+-Dsonar.sourceEncoding=UTF-8 \
 -Dsonar.sources=. \
--Dsonar.test.inclusions=src/**/*.spec.ts \
 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info \
+-Dsonar.test.inclusions=src/**/*.spec.ts \
+-Dsonar.exclusions=scripts/**/*.js \
 -Dsonar.qualitygate.wait=true \
 -Dsonar.branch.name=dev-feature
 -Dsonar.branch.target=dev \
