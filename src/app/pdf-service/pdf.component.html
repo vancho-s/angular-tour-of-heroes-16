@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let pdfFile of pdfFiles">
+    <!--<button (click)="openPdf(pdfFile.fileName)">{{ pdfFile.title }}</button>-->
+    <a [href]="calculateHref(pdfFile.fileName)" target="_blank">{{ pdfFile.title }}</a>
+    <!--<a href="#" (click)="openInNewWindow(pdfFile.fileName)">{{ pdfFile.title }}</a>-->
+  </li>
+</ul>
